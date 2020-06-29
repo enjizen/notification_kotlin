@@ -42,14 +42,14 @@ class LoggingAspectJ {
 
     @Before("execution(* com.tua.wanchalerm.notification.service.*.*(..))")
     fun logBefore(joinPoint: JoinPoint) {
-        log.info("Start Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
+        log.info("- Package : ${joinPoint.signature.declaringTypeName}")
+        log.info("- Method : ${joinPoint.signature.name}")
     }
 
     @After("execution(* com.tua.wanchalerm.notification.service.*.*(..))")
     fun logAfter(joinPoint: JoinPoint) {
-        log.info("End Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
+        log.info("- End Package : ${joinPoint.signature.declaringTypeName}")
+        log.info("- Method : ${joinPoint.signature.name}")
     }
 
 }
