@@ -20,8 +20,8 @@ class EmailService {
     private lateinit var templateEngine: TemplateEngine
 
 
-    fun sent(email: Email) {
-        try {
+
+    fun sent(email: Email)  {
             val ctx = Context().apply {
                 email.content?.forEach { key, value ->
                     setVariable(key, value)
@@ -41,9 +41,6 @@ class EmailService {
             message.setText(content, true)
 
             mainSender.send(mimeMessage)
-        }catch (ex: Exception) {
-            log.error("Error", ex)
-        }
 
     }
 
