@@ -14,7 +14,7 @@ class EmailService {
     val log = LogManager.getLogger()!!
 
     @Autowired
-    private lateinit var mainSender: JavaMailSender
+    private lateinit var mailSender: JavaMailSender
 
     @Autowired
     private lateinit var templateEngine: TemplateEngine
@@ -23,11 +23,9 @@ class EmailService {
 
     fun sent(email: Email)  {
             val ctx = Context().apply {
-                email.content?.forEach { key, value ->
-                    setVariable(key, value)
-                }
+                email.content?.forEach (this::setVariable)
             }
-            val mimeMessage = mainSender.createMimeMessage()
+            val mimeMessage = mailSender.createMimeMessage()
             val message = MimeMessageHelper(mimeMessage, true, "UTF-8")
 
             with(email) {
@@ -40,7 +38,7 @@ class EmailService {
             val content = templateEngine.process(email.template.fileName, ctx)
             message.setText(content, true)
 
-            mainSender.send(mimeMessage)
+            mailSender.send(mimeMessage)
 
     }
 

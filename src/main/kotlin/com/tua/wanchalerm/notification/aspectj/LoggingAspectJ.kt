@@ -13,33 +13,6 @@ class LoggingAspectJ {
 
     val log = LogManager.getLogger(this.javaClass)!!
 
-    /* @Before("execution(* com.tua.wanchalerm.notification.controller.*.*(..))")
-    fun logBeforeController(joinPoint: JoinPoint) {
-        log.info("******")
-        log.info("Start Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
-    }
-
-    @Before("execution(* com.tua.wanchalerm.notification.service.*.*(..))")
-    fun logBefore(joinPoint: JoinPoint) {
-        log.info("Start Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
-    }
-
-    @After("execution(* com.tua.wanchalerm.notification.service.*.*(..))")
-    fun logAfter(joinPoint: JoinPoint) {
-        log.info("End Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
-    }
-
-    @After("execution(* com.tua.wanchalerm.notification.controller.*.*(..))")
-    fun logControllerAfter(joinPoint: JoinPoint) {
-        log.info("")
-        log.info("End Package : ${joinPoint.signature.declaringTypeName}")
-        log.info("Method : ${joinPoint.signature.name}")
-        log.info("******")
-    }*/
-
     @Before("execution(* com.tua.wanchalerm.notification.service.*.*(..))")
     fun logBefore(joinPoint: JoinPoint) {
         log.info("- Package : ${joinPoint.signature.declaringTypeName}")
