@@ -25,21 +25,23 @@ class EmailService {
             val ctx = Context().apply {
                 email.content?.forEach (this::setVariable)
             }
+
+            val content = templateEngine.process(email.template.fileName, ctx)
+
             val mimeMessage = mailSender.createMimeMessage()
             val message = MimeMessageHelper(mimeMessage, true, "UTF-8")
 
-            with(email) {
-                subject?.let { message.setSubject(it) }
-                emailTo?.let { message.setTo(it.toTypedArray()) }
-                emailCc?.let { message.setCc(it.toTypedArray()) }
-                emailBcc?.let { message.setBcc(it.toTypedArray()) }
+            message.apply {
+                with(email) {
+                    subject?.let { setSubject(it) }
+                    emailTo?.let { setTo(it.toTypedArray()) }
+                    emailCc?.let { setCc(it.toTypedArray()) }
+                    emailBcc?.let { setBcc(it.toTypedArray()) }
+                }
+                setText(content, true)
             }
 
-            val content = templateEngine.process(email.template.fileName, ctx)
-            message.setText(content, true)
-
             mailSender.send(mimeMessage)
-
     }
 
 }
