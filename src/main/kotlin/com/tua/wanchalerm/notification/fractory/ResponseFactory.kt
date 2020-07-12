@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component
 @Component
 class ResponseFactory {
 
-    fun success(value: Any? = null, clazz: Class<*>? = null) : ResponseEntity<*> {
+    fun success(data: Any? = null, clazz: Class<*>? = null) : ResponseEntity<*> {
         GeneralResponse<Any>().apply {
             code = Response.SUCCESS_CODE
-            value?.let {
-                data = clazz?.cast(value)
+            data?.let {
+                this.data = clazz?.cast(data)
             }
 
         }.run {
@@ -21,9 +21,12 @@ class ResponseFactory {
         }
     }
 
-    fun error(httpStatus: HttpStatus, errorCode: String) : ResponseEntity<*> {
+    fun error(httpStatus: HttpStatus, errorCode: String, data: Any? = null, clazz: Class<*>? = null) : ResponseEntity<*> {
         GeneralResponse<Any>().apply {
             code = errorCode
+            data?.let {
+                this.data = clazz?.cast(data)
+            }
         }.run {
            return ResponseEntity(this, httpStatus)
         }
